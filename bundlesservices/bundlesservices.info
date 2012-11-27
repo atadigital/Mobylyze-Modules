@@ -1,0 +1,9 @@
+;$id$
+name = Bundles Services
+description = Services Module for Mobylyze Bundles
+package = Drupal 7 Development
+core = 7.x
+files[] = bundlesservices.inc
+files[] = bundlesservices.module
+;dependencies[] = autoload
+;php = 5.2

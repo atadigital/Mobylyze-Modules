@@ -1,0 +1,9 @@
+;$id$
+name = Polls Services
+description = Services Module for Mobylyze Polls
+package = Drupal 7 Development
+core = 7.x
+files[] = pollsservices.inc
+files[] = pollsservices.module
+;dependencies[] = autoload
+;php = 5.2

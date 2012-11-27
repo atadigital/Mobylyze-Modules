@@ -1,0 +1,9 @@
+;$id$
+name = Home Services
+description = Services Module for Mobylyze Home Information
+package = Drupal 7 Development
+core = 7.x
+files[] = homeservices.inc
+files[] = homeservices.module
+;dependencies[] = autoload
+;php = 5.2

@@ -1,0 +1,9 @@
+;$id$
+name = Events Services
+description = Services Module for Mobylyze Events
+package = Drupal 7 Development
+core = 7.x
+files[] = eventservices.inc
+files[] = eventservices.module
+;dependencies[] = autoload
+;php = 5.2

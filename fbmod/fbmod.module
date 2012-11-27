@@ -1,0 +1,75 @@
+<?php
+//$Id$
+/**
+* @file
+* A module that allows facebook login capability
+*
+*This module provides integration with Facebook login and drupal users
+*/
+/**
+ * Implements hook_install().
+ */
+function fbmod_install() {
+  // Set the weight to 3, making it heavier than Pathauto.
+  db_update('system')
+    ->fields(array(
+        'weight' => 3,
+      ))
+    ->condition('type', 'module')
+    ->condition('name', 'fbmod')
+    ->execute();
+}
+
+/**
+ * Set the weight to 3
+ */
+function fbmod_update_7100() {
+// Set the weight to 3, making it heavier than Pathauto.
+  db_update('system')
+    ->fields(array(
+        'weight' => 3,
+      ))
+    ->condition('type', 'module')
+    ->condition('name', 'fbmod')
+    ->execute();
+}
+/**
+* Implements hook_services_resources()
+*/
+function fbmod_services_resources() {
+  return array(
+'user' => array(
+'actions' => array(
+'loginService' => array(
+'help' => 'Login using an external service like Facebook or Twitter',
+'callback' => '_fbmod_loginService',
+'args' => array(
+array(
+'name' => 'service',
+'type' => 'string',
+'description' => "The type of service to use, it can be facebook or twitter",
+'source' => array('data' => 'service'),
+'optional' => FALSE,
+),
+array(
+'name' => 'id',
+'type' => 'string',
+'description' => "The id, usually fbid",
+'source' => array("data" => 'id'),
+'optional' => FALSE,
+),
+array(
+'name' => 'accesstoken',
+'type' => 'string',
+'description' => "The access token received by fb",
+'source' => array('data' => 'accesstoken'),
+'optional' => FALSE
+),
+),
+'access callback' => 'services_access_menu',
+'file' => array('type' => 'inc', 'module' => 'fbmod')
+)
+)
+),
+  );
+}

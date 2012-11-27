@@ -1,0 +1,9 @@
+;$id$
+name = News Services
+description = Services Module for Mobylyze News
+package = Drupal 7 Development
+core = 7.x
+files[] = newsservices.inc
+files[] = newsservices.module
+;dependencies[] = autoload
+;php = 5.2

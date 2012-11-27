@@ -1,0 +1,145 @@
+<?php
+/**
+ * @file
+ * Link general user relationship functionalities to services module.
+ *
+ * @author Drupal 6 port by Darren Ferguson <http://drupal.org/user/70179>.
+ * @author Written by scottgifford http://drupal.org/user/245699.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function user_relationship_service_services_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#services_user':
+      return '<p>' . t('Provides user relationship methods to services applications. Requires services.module.') . '</p>';
+    case 'admin/modules#description':
+      return t('Provides user relationship methods to services applications. Requires services.module.');
+  }
+}
+
+/**
+ * Implements hook_service().
+ */
+function user_relationship_service_services_resources() {
+  return array(
+ 'user' => array(
+   'actions' => array(
+   'user_relationships_types' => array(
+   'help' => 'Get a list of relationship types',
+   'callback' => '_user_relationship_service_types',
+   'args' => array(
+    array(
+    'name' => 'version',
+    'type' => 'int',
+    'description' => 'API version to use',
+    'source' => array('data' => 'version'),
+    'optional' => FALSE
+  ),
+),
+'file' => array('type' => 'inc', 'module' => 'user_relationship_service')
+),
+'user_relationships_mine' => array(
+   'help' => 'Get a list of user relationships',
+   'callback' => 'user_relationship_service_mine',
+   'access arguments' => array('view'),
+   'access arguments append' => TRUE,
+   'args' => array(
+    array(
+    'name' => 'version',
+    'type' => 'int',
+    'description' => 'API version to use',
+    'source' => array('data' => 'version'),
+    'optional' => FALSE
+  ),
+),
+'access callback' => '_user_relationship_service_access',
+'file' => array('type' => 'inc', 'module' => 'user_relationship_service')
+),
+'user_relationships_delete' => array(
+   'help' => 'Delete an existing or pending relationship',
+   'callback' => 'user_relationship_service_delete',
+   'args' => array(
+    array(
+    'name' => 'version',
+    'type' => 'int',
+    'description' => 'API version to use',
+    'source' => array('data' => 'version'),
+    'optional' => FALSE
+  ),
+  array(
+	'name' => 'rid',
+	'type' => 'int',
+	'description' => 'Relationship ID to delete',
+	'source' => array('data' => 'rid'),
+	'optional' => FALSE
+  ),
+  array(
+	'name' => 'reason',
+       'type' => 'string',
+	'description' => 'Reason for deletion (cancel, disapprove, remove)',
+	'source' => array('data' => 'reason'),
+	'optional' => FALSE
+  ),
+),
+'access callback' => '_user_relationship_service_access',
+'file' => array('type' => 'inc', 'module' => 'user_relationship_service')
+),
+'user_relationships_approve' => array(
+   'help' => 'Approve a requested relationship',
+   'callback' => 'user_relationship_service_approve',
+   'args' => array(
+    array(
+    'name' => 'version',
+    'type' => 'int',
+    'description' => 'API version to use',
+    'source' => array('data' => 'version'),
+    'optional' => FALSE
+  ),
+  array(
+	'name' => 'rid',
+	'type' => 'int',
+	'description' => 'Relationship ID to delete',
+	'source' => array('data' => 'rid'),
+	'optional' => FALSE
+  )
+),
+'access callback' => '_user_relationship_service_access',
+'file' => array('type' => 'inc', 'module' => 'user_relationship_service')
+),
+'user_relationships_request' => array(
+   'help' => 'Request a relationship with another user',
+   'callback' => 'user_relationship_service_request',
+   'args' => array(
+    array(
+    'name' => 'version',
+    'type' => 'int',
+    'description' => 'API version to use',
+    'source' => array('data' => 'version'),
+    'optional' => FALSE
+  ),
+  array(
+	'name' => 'uid',
+	'type' => 'int',
+	'description' => 'UID to request a relationship with',
+	'source' => array('data' => 'uid'),
+	'optional' => FALSE
+  ),
+  array(
+	'name' => 'type',
+	'type' => 'string',
+	'description' => 'Name of relationship type to create',
+	'source' => array('data' => 'type'),
+	'optional' => FALSE
+  )
+),
+'access callback' => '_user_relationship_service_access',
+'file' => array('type' => 'inc', 'module' => 'user_relationship_service')
+),
+
+)
+),
+    );
+}
+    

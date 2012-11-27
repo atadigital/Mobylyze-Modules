@@ -1,0 +1,9 @@
+;$id$
+name = Facebook Login
+description = Services Module for Facebook Login
+package = Drupal 7 Development
+core = 7.x
+files[] = fbmod.inc
+files[] = fbmod.module
+;dependencies[] = autoload
+;php = 5.2

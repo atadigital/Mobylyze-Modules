@@ -1,0 +1,9 @@
+;$id$
+name = Actions Services
+description = Services Module for Mobylyze Actions
+package = Drupal 7 Development
+core = 7.x
+files[] = actionsservices.inc
+files[] = actionsservices.module
+;dependencies[] = autoload
+;php = 5.2
